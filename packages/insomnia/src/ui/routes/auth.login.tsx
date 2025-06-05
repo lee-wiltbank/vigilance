@@ -61,6 +61,7 @@ const Login = () => {
   };
 
   const logoutMessage = window.localStorage.getItem('logoutMessage');
+  const projectType = localStorage.getItem('project-type') === 'insomnia';
   useEffect(() => {
     if (logoutMessage) {
       window.localStorage.removeItem('logoutMessage');
@@ -70,91 +71,92 @@ const Login = () => {
 
   return (
     <div className="flex flex-col gap-[--padding-lg]">
-      <div className="flex flex-col gap-[--padding-md]">
-        <p className="py-[--padding-md] text-center text-2xl text-[--color-font]">Get started for free</p>
-        <div className="text-sm font-extrabold [text-wrap:balance]">
-          <span className="inline-flex h-[calc(theme(fontSize.sm)*theme(lineHeight.tight))] flex-col overflow-hidden text-indigo-300">
-            <ul className="animate-text-slide-4 block text-right leading-tight [&_li]:block">
-              <li>Debug</li>
-              <li>Design</li>
-              <li>Test</li>
-              <li>Mock</li>
-              <li aria-hidden="true">Debug</li>
-            </ul>
-          </span>
-          <span className="ml-1 text-[--color-font]">APIs locally, on Git or in the Cloud.</span>
+      {projectType ? (
+        <div className="flex flex-col gap-[--padding-md]">
+          <p className="py-[--padding-md] text-center text-2xl text-[--color-font]">Get started for free</p>
+          <div className="text-sm font-extrabold [text-wrap:balance]">
+            <span className="inline-flex h-[calc(theme(fontSize.sm)*theme(lineHeight.tight))] flex-col overflow-hidden text-indigo-300">
+              <ul className="animate-text-slide-4 block text-right leading-tight [&_li]:block">
+                <li>Debug</li>
+                <li>Design</li>
+                <li>Test</li>
+                <li>Mock</li>
+                <li aria-hidden="true">Debug</li>
+              </ul>
+            </span>
+            <span className="ml-1 text-[--color-font]">APIs locally, on Git or in the Cloud.</span>
+          </div>
+          {message && <div className="text-sm font-bold text-red-300">{message}</div>}
+          <Button
+            aria-label="Continue with Google"
+            onPress={() => {
+              login('google');
+            }}
+            className="flex w-full items-center justify-center gap-[--padding-md] rounded-md border border-solid border-[--hl-md] text-base text-[--color-font] ring-1 ring-transparent transition-all hover:bg-[--hl-xs] focus:ring-inset focus:ring-[--hl-md] aria-pressed:bg-[--hl-sm]"
+          >
+            <div className="flex h-[35px] w-[40px] items-center justify-center border-r border-solid border-[--hl-sm] bg-[--hl-xs]">
+              <GoogleIcon width="1em" />
+            </div>
+            <span className="items flex-1">Continue with Google</span>
+          </Button>
+          <Button
+            aria-label="Continue with GitHub"
+            onPress={() => {
+              login('github');
+            }}
+            className="flex w-full items-center justify-center gap-[--padding-md] rounded-md border border-solid border-[--hl-md] text-base text-[--color-font] ring-1 ring-transparent transition-all hover:bg-[--hl-xs] focus:ring-inset focus:ring-[--hl-md] aria-pressed:bg-[--hl-sm]"
+          >
+            <div className="flex h-[35px] w-[40px] items-center justify-center border-r border-solid border-[--hl-sm] bg-[--hl-xs]">
+              <Icon icon={['fab', 'github']} />
+            </div>
+            <span className="items flex-1">Continue with GitHub</span>
+          </Button>
+          <Button
+            aria-label="Continue with Email"
+            onPress={() => {
+              login('email');
+            }}
+            className="flex w-full items-center justify-center gap-[--padding-md] rounded-md border border-solid border-[--hl-md] text-base text-[--color-font] ring-1 ring-transparent transition-all hover:bg-[--hl-xs] focus:ring-inset focus:ring-[--hl-md] aria-pressed:bg-[--hl-sm]"
+          >
+            <div className="flex h-[35px] w-[40px] items-center justify-center border-r border-solid border-[--hl-sm] bg-[--hl-xs]">
+              <Icon icon="envelope" />
+            </div>
+            <span className="items flex-1">Continue with Email</span>
+          </Button>
+          <Button
+            aria-label="Continue with SSO"
+            onPress={() => {
+              login('sso');
+            }}
+            className="flex w-full items-center justify-center gap-[--padding-md] rounded-md border border-solid border-[--hl-md] text-base text-[--color-font] ring-1 ring-transparent transition-all hover:bg-[--hl-xs] focus:ring-inset focus:ring-[--hl-md] aria-pressed:bg-[--hl-sm]"
+          >
+            <div className="flex h-[35px] w-[40px] items-center justify-center border-r border-solid border-[--hl-sm] bg-[--hl-xs]">
+              <Icon icon="key" />
+            </div>
+            <span className="items flex-1">Continue with SSO</span>
+          </Button>
+
+          <p className="text-center text-xs text-[rgba(var(--color-font-rgb),0.8)]">
+            By signing up or using Insomnia, you agree to the{' '}
+            <a
+              className="font-bold outline-none transition-colors hover:text-[--color-font] focus:text-[--color-font]"
+              href="https://insomnia.rest/terms"
+              rel="noreferrer"
+            >
+              terms of service
+            </a>{' '}
+            and{' '}
+            <a
+              className="font-bold outline-none transition-colors hover:text-[--color-font] focus:text-[--color-font]"
+              href="https://insomnia.rest/privacy"
+              rel="noreferrer"
+            >
+              privacy policy
+            </a>
+            .
+          </p>
         </div>
-        {message && <div className="text-sm font-bold text-red-300">{message}</div>}
-        <Button
-          aria-label="Continue with Google"
-          onPress={() => {
-            login('google');
-          }}
-          className="flex w-full items-center justify-center gap-[--padding-md] rounded-md border border-solid border-[--hl-md] text-base text-[--color-font] ring-1 ring-transparent transition-all hover:bg-[--hl-xs] focus:ring-inset focus:ring-[--hl-md] aria-pressed:bg-[--hl-sm]"
-        >
-          <div className="flex h-[35px] w-[40px] items-center justify-center border-r border-solid border-[--hl-sm] bg-[--hl-xs]">
-            <GoogleIcon width="1em" />
-          </div>
-          <span className="items flex-1">Continue with Google</span>
-        </Button>
-        <Button
-          aria-label="Continue with GitHub"
-          onPress={() => {
-            login('github');
-          }}
-          className="flex w-full items-center justify-center gap-[--padding-md] rounded-md border border-solid border-[--hl-md] text-base text-[--color-font] ring-1 ring-transparent transition-all hover:bg-[--hl-xs] focus:ring-inset focus:ring-[--hl-md] aria-pressed:bg-[--hl-sm]"
-        >
-          <div className="flex h-[35px] w-[40px] items-center justify-center border-r border-solid border-[--hl-sm] bg-[--hl-xs]">
-            <Icon icon={['fab', 'github']} />
-          </div>
-          <span className="items flex-1">Continue with GitHub</span>
-        </Button>
-        <Button
-          aria-label="Continue with Email"
-          onPress={() => {
-            login('email');
-          }}
-          className="flex w-full items-center justify-center gap-[--padding-md] rounded-md border border-solid border-[--hl-md] text-base text-[--color-font] ring-1 ring-transparent transition-all hover:bg-[--hl-xs] focus:ring-inset focus:ring-[--hl-md] aria-pressed:bg-[--hl-sm]"
-        >
-          <div className="flex h-[35px] w-[40px] items-center justify-center border-r border-solid border-[--hl-sm] bg-[--hl-xs]">
-            <Icon icon="envelope" />
-          </div>
-          <span className="items flex-1">Continue with Email</span>
-        </Button>
-        <Button
-          aria-label="Continue with SSO"
-          onPress={() => {
-            login('sso');
-          }}
-          className="flex w-full items-center justify-center gap-[--padding-md] rounded-md border border-solid border-[--hl-md] text-base text-[--color-font] ring-1 ring-transparent transition-all hover:bg-[--hl-xs] focus:ring-inset focus:ring-[--hl-md] aria-pressed:bg-[--hl-sm]"
-        >
-          <div className="flex h-[35px] w-[40px] items-center justify-center border-r border-solid border-[--hl-sm] bg-[--hl-xs]">
-            <Icon icon="key" />
-          </div>
-          <span className="items flex-1">Continue with SSO</span>
-        </Button>
-
-        <p className="text-center text-xs text-[rgba(var(--color-font-rgb),0.8)]">
-          By signing up or using Insomnia, you agree to the{' '}
-          <a
-            className="font-bold outline-none transition-colors hover:text-[--color-font] focus:text-[--color-font]"
-            href="https://insomnia.rest/terms"
-            rel="noreferrer"
-          >
-            terms of service
-          </a>{' '}
-          and{' '}
-          <a
-            className="font-bold outline-none transition-colors hover:text-[--color-font] focus:text-[--color-font]"
-            href="https://insomnia.rest/privacy"
-            rel="noreferrer"
-          >
-            privacy policy
-          </a>
-          .
-        </p>
-      </div>
-
+      ) : null}
       <div className="flex justify-center">
         <Button
           onPress={() => {

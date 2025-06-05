@@ -1,15 +1,15 @@
 {
-  "name": "insomnia",
-  "appId": "com.insomnia.app",
-  "userDataFolder": "Insomnia",
-  "productName": "Insomnia",
+  "name": "vigilance",
+  "appId": "com.vigilance.app",
+  "userDataFolder": "Vigilance",
+  "productName": "Vigilance",
   "synopsis": "The Collaborative API Client and Design Tool",
   "icon": "https://github.com/kong/insomnia/blob/develop/packages/insomnia/src/icons/icon.ico?raw=true",
   "theme": "default",
   "lightTheme": "studio-light",
   "darkTheme": "default",
   "githubOrg": "Kong",
-  "githubRepo": "insomnia",
+  "githubRepo": "vigilance",
   "segmentWriteKeys": {
     "development": "rTOCSvGV23cHGJyb3HI9EUQDNA6ar7ay",
     "production": "4l7QUfACrIcqvC913hiIwAA2BDYP2OJ1"

@@ -604,8 +604,9 @@ const OrganizationRoute = () => {
     'scratchpad-banner-dismissed',
     '',
   );
+  const projectType = localStorage.getItem('project-type') === 'insomnia';
   const isScratchpadWorkspace = workspaceData?.activeWorkspace && isScratchpad(workspaceData.activeWorkspace);
-  const isScratchPadBannerVisible = !isScratchPadBannerDismissed && isScratchpadWorkspace;
+  const isScratchPadBannerVisible = !isScratchPadBannerDismissed && isScratchpadWorkspace && projectType;
   const untrackedProjectsFetcher = useFetcher<UntrackedProjectsLoaderData>();
   const { organizationId, projectId } = useParams() as {
     organizationId: string;
@@ -658,7 +659,10 @@ const OrganizationRoute = () => {
   const untrackedWorkspaces = untrackedProjectsFetcher.data?.untrackedWorkspaces || [];
   const hasUntrackedData = untrackedProjects.length > 0 || untrackedWorkspaces.length > 0;
 
-  const [isOrganizationSidebarOpen, setIsOganizationSidebarOpen] = useLocalStorage('organizationSidebarOpen', true);
+  const [isOrganizationSidebarOpen, setIsOganizationSidebarOpen] = useLocalStorage(
+    'organizationSidebarOpen',
+    projectType,
+  );
   const [isMinimal, setIsMinimal] = useLocalStorage('isMinimal', false);
 
   const { generating: loadingAI, progress: loadingAIProgress } = useAIContext();
@@ -676,7 +680,7 @@ const OrganizationRoute = () => {
                   <div className="flex w-[50px] shrink-0 justify-center py-2">
                     <InsomniaLogo loading={loadingAI} />
                   </div>
-                  {!user ? <GitHubStarsButton /> : null}
+                  {!user && projectType ? <GitHubStarsButton /> : null}
                 </div>
                 <CommandPalette />
                 <div className="flex items-center justify-end gap-[--padding-sm] p-2">
@@ -686,6 +690,8 @@ const OrganizationRoute = () => {
                       <HeaderInviteButton className="border border-solid border-[--hl-md] bg-[rgba(var(--color-surprise-rgb),var(--tw-bg-opacity))] bg-opacity-100 font-semibold text-[--color-font-surprise]" />
                       <HeaderUserButton user={user} currentPlan={currentPlan} isMinimal={isMinimal} />
                     </Fragment>
+                  ) : isScratchpadWorkspace ? (
+                    <Fragment />
                   ) : (
                     <Fragment>
                       <NavLink

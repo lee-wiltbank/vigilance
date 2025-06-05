@@ -35,7 +35,7 @@ import type { ToastNotification } from './ui/components/toast';
 // ensure userData dir change is made before configure sentry SDK (https://docs.sentry.io/platforms/javascript/guides/electron/#app-userdata-directory)
 const dataPath =
   process.env.INSOMNIA_DATA_PATH ||
-  path.join(app.getPath('userData'), '../', isDevelopment() ? 'insomnia-app' : userDataFolder);
+  path.join(app.getPath('userData'), '../', isDevelopment() ? 'vigilance-app' : userDataFolder);
 app.setPath('userData', dataPath);
 
 initializeLogging();
