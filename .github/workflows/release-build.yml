@@ -72,20 +72,20 @@ jobs:
         run: |
           echo "INSO_VERSION=$(jq .version ./packages/${{ env.INSO_PACKAGE_NAME }}/package.json -rj)" >> $GITHUB_ENV
 
-      - name: Package app (Linux ARM64 only)
-        if: runner.os == 'Linux' && runner.arch == 'ARM64'
-        shell: bash
-        run: npm run app-package
-        env:
-          NODE_OPTIONS: '--max_old_space_size=6144'
-          BUILD_TARGETS: AppImage,tar.gz
+      # - name: Package app (Linux ARM64 only)
+      #   if: runner.os == 'Linux' && runner.arch == 'ARM64'
+      #   shell: bash
+      #   run: npm run app-package
+      #   env:
+      #     NODE_OPTIONS: '--max_old_space_size=6144'
+      #     BUILD_TARGETS: AppImage,tar.gz
 
-      - name: Package app (Linux X64 only)
-        if: runner.os == 'Linux' && runner.arch == 'X64'
-        shell: bash
-        run: npm run app-package
-        env:
-          NODE_OPTIONS: '--max_old_space_size=6144'
+      # - name: Package app (Linux X64 only)
+      #   if: runner.os == 'Linux' && runner.arch == 'X64'
+      #   shell: bash
+      #   run: npm run app-package
+      #   env:
+      #     NODE_OPTIONS: '--max_old_space_size=6144'
 
       # If this step fails its possible apple has new license terms which need to be accepted by logging into https://developer.apple.com/account
       - name: Package app (MacOS only)
